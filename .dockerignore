@@ -11,6 +11,10 @@ README.md
 DEPLOY.md
 *.md
 
+# Nixpacks files (force Docker usage)
+nixpacks.toml
+.nixpacks
+
 # Environment files
 .env
 .env.local

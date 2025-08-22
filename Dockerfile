@@ -2,7 +2,7 @@
 # Compatible with environment variables from deployment platforms
 
 # Stage 1: Build the React application
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 # Set working directory
 WORKDIR /app
@@ -10,8 +10,8 @@ WORKDIR /app
 # Copy package files first for better caching
 COPY package*.json ./
 
-# Install dependencies (including dev dependencies for build)
-RUN npm ci
+# Install dependencies - use npm install instead of npm ci for better compatibility
+RUN npm install --only=production=false
 
 # Copy source code
 COPY . .
