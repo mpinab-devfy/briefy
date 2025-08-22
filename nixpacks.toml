@@ -8,7 +8,7 @@ cmd = "npx serve -s build -p $PORT"
 NODE_ENV = "production"
 
 [providers]
-nodejs = "18"
+nodejs = "20"
 
 # Static site configuration
 [staticSite]
