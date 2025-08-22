@@ -1,0 +1,23 @@
+[phases.build]
+cmd = "npm ci && npm run build"
+
+[phases.start]
+cmd = "npx serve -s build -p $PORT"
+
+[variables]
+NODE_ENV = "production"
+
+[providers]
+nodejs = "18"
+
+# Static site configuration
+[staticSite]
+publicDir = "build"
+
+# Health check
+[healthcheck]
+path = "/health"
+
+# Build cache
+[cache]
+directories = ["node_modules", ".npm"]
