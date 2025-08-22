@@ -1,0 +1,4 @@
+# Force Coolify to use Docker instead of Nixpacks
+# Use Dockerfile.proxy for the build
+dockerfile=Dockerfile.proxy
+port=80
