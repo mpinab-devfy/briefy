@@ -27,8 +27,9 @@ O Nixpacks é mais simples e geralmente funciona melhor com plataformas como Coo
    - `REACT_APP_BASE_URL`
 
 **Arquivos de configuração:**
-- `nixpacks.toml` - Configuração principal do Nixpacks
+- `.nixpacks` - Configuração mínima do Nixpacks (JSON)
 - `.coolify` - Configurações específicas do Coolify
+- `package.json` - Script `start:prod` adicionado para produção
 
 ### Opção 2: Usar Docker (Alternativa)
 
@@ -64,6 +65,14 @@ NODE_ENV=production
 ```
 
 ## Troubleshooting
+
+### Erro "Failed to parse Nixpacks config file":
+
+Se receber erro de parsing do `nixpacks.toml`:
+
+1. **Configuração corrigida** - Removido `nixpacks.toml` problemático
+2. **Usando .nixpacks** - Arquivo JSON simples com configuração mínima
+3. **Detecção automática** - Nixpacks detecta automaticamente aplicações React
 
 ### Erro "npm ci can only install packages when your package.json and package-lock.json are in sync":
 
