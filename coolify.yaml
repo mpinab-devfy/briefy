@@ -1,0 +1,63 @@
+# Coolify configuration file
+# This file helps Coolify understand how to deploy your application
+
+version: '3.8'
+
+services:
+  briefy-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.proxy
+    container_name: briefy-app
+    restart: unless-stopped
+    
+    # Expose port 80 for internal communication
+    expose:
+      - "80"
+    
+    # Environment variables
+    environment:
+      - NODE_ENV=production
+      - NGINX_ENV=proxy
+      - COOLIFY_DEPLOYMENT=true
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Network configuration
+    networks:
+      - coolify-network
+
+networks:
+  coolify-network:
+    driver: bridge
+    internal: false
+
+# Coolify specific labels
+labels:
+  - "coolify.managed=true"
+  - "coolify.type=application"
+  - "coolify.framework=react"
+  - "coolify.buildpack=nginx"
