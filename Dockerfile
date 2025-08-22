@@ -1,4 +1,5 @@
 # Multi-stage Docker build for React application
+# Compatible with environment variables from deployment platforms
 
 # Stage 1: Build the React application
 FROM node:18-alpine AS builder
@@ -16,6 +17,7 @@ RUN npm ci
 COPY . .
 
 # Build the application
+# Environment variables will be automatically injected by the build platform
 RUN npm run build
 
 # Stage 2: Serve the application with nginx
