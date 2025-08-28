@@ -9,28 +9,7 @@
       }
     }
   ],
-  "routes": [
-    {
-      "src": "/health",
-      "dest": "/health"
-    },
-    {
-      "src": "/status",
-      "dest": "/status"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp|avif|mp4|webm|ogg))",
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
+  
   "headers": [
     {
       "source": "/(.*)",
