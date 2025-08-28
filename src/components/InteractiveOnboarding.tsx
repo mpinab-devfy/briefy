@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FileUpload } from './FileUpload';
 import { DocumentFile, ProcessingSession } from '../types';
 import { processDocuments, testGeminiConnection } from '../services/geminiService';
@@ -35,7 +36,18 @@ const InteractiveOnboarding: React.FC<InteractiveOnboardingProps> = ({
   onUpdateSession,
   currentProject
 }: InteractiveOnboardingProps) => {
+  const navigate = useNavigate();
+  const params = useParams<{ mode?: string }>();
   const [mode, setMode] = useState<OnboardingMode>('selection');
+
+  // Sync internal mode with URL param when present (e.g. /onboarding/briefy)
+  useEffect(() => {
+    if (params.mode === 'briefy' || params.mode === 'manual') {
+      setMode(params.mode as OnboardingMode);
+    } else {
+      setMode('selection');
+    }
+  }, [params.mode]);
   const [projectName, setProjectName] = useState('');
   const [documents, setDocuments] = useState<DocumentFile[]>([]);
   const [additionalInfo, setAdditionalInfo] = useState('');
@@ -197,21 +209,15 @@ const InteractiveOnboarding: React.FC<InteractiveOnboardingProps> = ({
 
   const renderSelectionMode = () => (
     <div className="flex items-center justify-center min-h-[400px] px-4 py-8">
-      <div className="w-full max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Escolha seu Modo de Criação
-          </h2>
-          <p className="text-lg text-gray-600">
-            Selecione como você deseja criar seu projeto
-          </p>
-        </div>
-
-        <div className="flex flex-col space-y-8 items-stretch">
+      <div className="w-full mx-auto">
+        <div className="flex flex-col md:flex-row gap-8 items-stretch">
           {/* Modo Briefy */}
           <div
-            onClick={() => setMode('briefy')}
-            className="border-2 border-blue-200 rounded-xl p-8 cursor-pointer hover:border-blue-400 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-blue-50 to-blue-100 flex flex-col justify-between min-h-[280px]"
+            onClick={() => {
+              setMode('briefy');
+              navigate('/onboarding/briefy');
+            }}
+            className="w-full md:w-1/2 border-2 border-blue-200 rounded-xl p-8 cursor-pointer hover:border-blue-400 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-blue-50 to-blue-100 flex flex-col justify-between min-h-[280px]"
           >
             <div>
               <div className="flex items-center mb-6">
@@ -234,8 +240,11 @@ const InteractiveOnboarding: React.FC<InteractiveOnboardingProps> = ({
 
           {/* Modo Manual */}
           <div
-            onClick={() => setMode('manual')}
-            className="border-2 border-green-200 rounded-xl p-8 cursor-pointer hover:border-green-400 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-green-50 to-green-100 flex flex-col justify-between min-h-[280px]"
+            onClick={() => {
+              setMode('manual');
+              navigate('/onboarding/manual');
+            }}
+            className="w-full md:w-1/2 border-2 border-green-200 rounded-xl p-8 cursor-pointer hover:border-green-400 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-green-50 to-green-100 flex flex-col justify-between min-h-[280px]"
           >
             <div>
               <div className="flex items-center mb-6">
