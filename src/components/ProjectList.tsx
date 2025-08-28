@@ -332,17 +332,15 @@ const ProjectList: React.FC<ProjectListProps> = ({
 
   const renderProjectList = () => (
     <div className="max-w-full mx-auto">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Folder className="w-8 h-8 text-blue-600" />
+      {/* Header - alinhado ao estilo de SettingsPage */}
+      <div className="mb-8">
+        <div className="flex items-center space-x-3 mb-2">
+          <div className="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full">
+            <Folder className="w-5 h-5 text-blue-600" />
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900">Meus Projetos</h1>
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          Meus Projetos
-        </h1>
-        <p className="text-lg text-gray-600 mb-6">
-          Selecione um projeto para visualizar seu conteúdo
-        </p>
+        <p className="text-gray-600">Selecione um projeto para visualizar seu conteúdo</p>
       </div>
 
       {/* Message */}
@@ -363,7 +361,7 @@ const ProjectList: React.FC<ProjectListProps> = ({
 
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Projetos Existentes */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
+        <div className="bg-white rounded-lg shadow-lg p-6 lg:col-span-2">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold text-gray-900">
               Projetos Criados
@@ -459,56 +457,9 @@ const ProjectList: React.FC<ProjectListProps> = ({
 
         {/* Informações e Ações */}
         <div className="space-y-6">
-          {/* Estatísticas */}
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Resumo
-            </h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">
-                  {existingProjects.length}
-                </div>
-                <div className="text-sm text-gray-600">Projetos</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">
-                  {existingProjects.filter(p => p.hasPR && p.hasTasks && p.hasFlowchart).length}
-                </div>
-                <div className="text-sm text-gray-600">Completos</div>
-              </div>
-            </div>
-          </div>
+          {/* Painel 'Resumo' removido conforme solicitado */}
 
-          {/* Ações Rápidas */}
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Ações Rápidas
-            </h3>
-            <div className="space-y-3">
-              <button
-                onClick={onCreateNewProject}
-                className="w-full flex items-center justify-center px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                Criar Novo Projeto
-              </button>
-              <button
-                onClick={loadProjects}
-                className="w-full flex items-center justify-center px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-              >
-                <Loader className="w-4 h-4 mr-2" />
-                Atualizar Lista
-              </button>
-              <button
-                onClick={createTestProject}
-                className="w-full flex items-center justify-center px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                Criar Projeto de Teste
-              </button>
-            </div>
-          </div>
+          {/* Ações Rápidas removidas conforme solicitado */}
         </div>
       </div>
 

@@ -5,6 +5,7 @@ import { ProcessingSession } from './types';
 import { Project, projects } from './lib/supabase';
 import { saveGeneratedContent } from './services/projectContentService';
 import { HomePage, ProjectsPage, FlowchartsPage, SettingsPage } from './pages';
+import OnboardingWrapper from './pages/OnboardingWrapper';
 import { MainLayout } from './layouts';
 
 function App() {
@@ -213,7 +214,7 @@ function App() {
     };
 
     return (
-      <MainLayout>
+      <MainLayout breadcrumbContext={{ selectedProject: selectedProject ?? undefined, currentProject: currentProject ?? undefined }}>
         <Routes>
           <Route
             path="/"
@@ -263,6 +264,19 @@ function App() {
                 onProjectSelected={handleProjectSelectedWithNav}
               />
             }
+          />
+
+          {/* Onboarding routes for breadcrumb & header control */}
+          <Route
+            path="/onboarding/:mode"
+            element={<OnboardingWrapper
+              onStartSession={handleStartSession}
+              onCreateProject={handleCreateProject}
+              onProjectCreated={handleProjectCreated}
+              currentSession={currentSession}
+              onUpdateSession={handleUpdateSession}
+              currentProject={currentProject}
+            />}
           />
 
           <Route

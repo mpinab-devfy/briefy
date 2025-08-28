@@ -1,12 +1,15 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home, History, GitBranch, Settings } from 'lucide-react';
+import { Home, History, Settings } from 'lucide-react';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  // Optional context passed from App for resolving dynamic labels
+  breadcrumbContext?: import('../lib/breadcrumbs').BreadcrumbContext;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ children, breadcrumbContext }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -16,6 +19,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
+      {/* Breadcrumbs fixed to top, spanning content area to the right of the sidebar
+          Do not render on the Projects page (we want the Projects page to use its own header layout) */}
+      {location.pathname !== '/projetos' && (
+        <div className="fixed top-0 left-64 right-0 z-20">
+          <Breadcrumbs context={breadcrumbContext} />
+        </div>
+      )}
       {/* Navigation - Only show when authenticated */}
       <nav className="bg-white shadow-sm fixed top-0 left-0 h-full w-64 border-r border-gray-200 z-10">
         {/* Logo Section */}
@@ -23,7 +33,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <img
             src="https://devfy.co/wp-content/uploads/2024/07/Logo-1.png"
             alt="Briefy Logo"
-            className="w-16 h-16 object-contain"
+            className="w-32 h-32 object-contain"
           />
         </div>
 
@@ -52,17 +62,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             Projetos
           </button>
 
-          <button
-            onClick={() => handleNavigation('/fluxogramas')}
-            className={`flex items-center py-3 px-4 rounded-lg font-medium text-sm transition-colors ${
-              location.pathname === '/fluxogramas'
-                ? 'bg-blue-100 text-blue-700 border-r-2 border-blue-500'
-                : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-            }`}
-          >
-            <GitBranch className="w-5 h-5 mr-3" />
-            Fluxogramas
-          </button>
+
 
           <button
             onClick={() => handleNavigation('/configuracoes')}
@@ -79,7 +79,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       </nav>
 
       {/* Main Content */}
-      <main className="flex-1 ml-64 mr-0 pt-8 px-12 py-12 overflow-auto">
+      <main className="flex-1 ml-64 mr-0 pt-28 px-12 pb-12 overflow-auto">
         {children}
       </main>
     </div>

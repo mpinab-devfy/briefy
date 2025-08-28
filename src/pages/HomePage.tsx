@@ -26,11 +26,12 @@ const HomePage: React.FC<HomePageProps> = ({
   onCreateNewProject,
   onProjectSelected
 }) => {
+  // Note: keep header in Home only when path is exactly '/'
   return (
-    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center px-4 py-8">
+    <div className="min-h-[calc(100vh-200px)] px-4 py-8">
       <div className="w-full max-w-7xl mx-auto">
         <div className="grid xl:grid-cols-1 lg:grid-cols-1 gap-8 items-center justify-items-center">
-          <div className="xl:col-span-2 lg:col-span-1 w-full max-w-4xl">
+          <div className="xl:col-span-2 lg:col-span-1 w-full">
             <InteractiveOnboarding
               onStartSession={onStartSession}
               onCreateProject={onCreateProject}
